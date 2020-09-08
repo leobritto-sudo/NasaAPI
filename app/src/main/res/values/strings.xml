@@ -11,5 +11,8 @@
     <string name="btn2">Compartilhar</string>
     <string name="btnExit">Sair</string>
     <string name="btnBack">Voltar</string>
+    <string name="btnApod">APOD</string>
+    <string name="btnEarth">EARTH</string>
+    <string name="btnEarthUser">EARTH USER</string>
     <string name="txt3_no_results">Nenhum resultado encontrado</string>
 </resources>

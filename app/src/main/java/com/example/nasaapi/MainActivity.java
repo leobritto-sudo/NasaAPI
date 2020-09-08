@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -28,126 +27,38 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import android.view.View.OnClickListener;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
+public class MainActivity extends AppCompatActivity{
 
-    private static final String TAG = "MainActivity";
-    private TextView txt1, txt;
-    private Button btn1;
-    private Button btnExit;
+    private Button btnApod, btnEarth, btnEarthUser, btnExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        txt1 = findViewById(R.id.txt1);
-        txt = findViewById(R.id.txt);
-        btn1 = findViewById(R.id.btn1);
+        btnApod = findViewById(R.id.btnApod);
+        btnEarth = findViewById(R.id.btnEarth);
+        btnEarthUser = findViewById(R.id.btnEarthUser);
         btnExit = findViewById(R.id.btnExit);
-        if (getSupportLoaderManager().getLoader(0) != null) {
-            getSupportLoaderManager().initLoader(0, null,  this);
         }
-    }
 
-    public void selectDate(View view){
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
+        public void btEarth(View v){
+            Intent intent = new Intent(this, Earth.class);
+            startActivity(intent);
+        }
 
-        DatePickerDialog dialog = new DatePickerDialog(
-                MainActivity.this,
-                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                mDate,
-                year,month,day);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-    }
+        public void btEarthUser(View v){
+            Intent intent = new Intent(this, EarthUser.class);
+            startActivity(intent);
+        }
 
-
-   private DatePickerDialog.OnDateSetListener mDate = new DatePickerDialog.OnDateSetListener(){
-       @Override
-       public void onDateSet(DatePicker view, int year, int month, int day) {
-           month = month + 1;
-           Log.d(TAG, "onDateSet: dd/mm/yyyy: " + day + "/" + month + "/" + year);
-
-           String date = day + "/" + month + "/" + year;
-           txt1.setText(date);
-       }
-    };
+        public void btApod(View v){
+            Intent intent = new Intent(this, APOD.class);
+            startActivity(intent);
+        }
 
         public void Exit(View v) {
             finish();
             System.exit(0);
         }
-
-    public void buscarImage(View view) throws ParseException {
-        String dateNasa = txt1.getText().toString();
-        SimpleDateFormat formatoOrigem = new SimpleDateFormat("dd/MM/yyyy");
-        Date data = formatoOrigem.parse(dateNasa);
-        SimpleDateFormat formatoDestino = new SimpleDateFormat("yyyy-MM-dd");
-        String queryString = formatoDestino.format(data);
-
-        InputMethodManager inputManager = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (inputManager != null) {
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = null;
-        if (connMgr != null) {
-            networkInfo = connMgr.getActiveNetworkInfo();
-        }
-        if (networkInfo != null && networkInfo.isConnected()
-                && queryString.length() != 0) {
-            Bundle queryBundle = new Bundle();
-            queryBundle.putString("queryString", queryString);
-            getSupportLoaderManager().restartLoader(0, queryBundle, this);
-        }
-        else {
-            if (queryString.length() == 16) {
-                txt1.setText("DATA VAZIA, INFORME UMA");
-            } else {
-                txt1.setText("Verifique sua conexão");
-            }
-        }
     }
-    @NonNull
-    @Override
-    public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
-        String queryString = "";
-        if (args != null) {
-            queryString = args.getString("queryString");
-        }
-        return new CarregaFoto(this, queryString);
-    }
-    @Override
-    public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-
-            String URL = jsonObject.getString("url");
-
-            if (URL != null) {
-
-                Intent intent = new Intent(this, NasaPic.class);
-                intent.putExtra("url", URL);
-                startActivity(intent);
-
-            } else {
-                txt1.setText("Sem resultados, tente novamente");
-            }
-        } catch (Exception e) {
-            txt1.setText("Sem resultados, tente novamente");
-            e.printStackTrace();
-        }
-    }
-    @Override
-    public void onLoaderReset(@NonNull Loader<String> loader) {
-        // obrigatório implementar, nenhuma ação executada
-    }
-}
