@@ -2,7 +2,9 @@ package com.example.nasaapi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import java.net.URL;
 
 public class NasaPic extends AppCompatActivity {
 
@@ -28,8 +32,8 @@ public class NasaPic extends AppCompatActivity {
         ivNasa = findViewById(R.id.ivNasa);
         btn2 = findViewById(R.id.btn2);
 
-        Bundle bundle = getIntent().getExtras();
-        String URL = bundle.getString("url");
+        SharedPreferences prefURL = getSharedPreferences("url", Context.MODE_PRIVATE);
+        String URL = prefURL.getString("url", "não encontrado");
         if(URL != null) {
 
             Uri uriimg = Uri.parse(URL);

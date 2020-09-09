@@ -9,6 +9,7 @@ import androidx.loader.content.Loader;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -135,7 +136,10 @@ public class APOD extends AppCompatActivity implements LoaderManager.LoaderCallb
             if (URL != null) {
 
                 Intent intent = new Intent(this, NasaPic.class);
-                intent.putExtra("url", URL);
+                SharedPreferences prefURL = getSharedPreferences("url", Context.MODE_PRIVATE);
+                SharedPreferences.Editor ed = prefURL.edit();
+                ed.putString("url", URL);
+                ed.apply();
                 startActivity(intent);
 
             } else {
