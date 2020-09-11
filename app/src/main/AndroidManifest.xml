@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EarthUser"></activity>
+        <activity android:name=".NasaEarth"></activity>
+        <activity android:name=".EarthUser" />
         <activity android:name=".Earth" />
         <activity android:name=".APOD" />
         <activity android:name=".NasaPic" />

@@ -43,16 +43,19 @@ public class MainActivity extends AppCompatActivity{
         }
 
         public void btEarth(View v){
+            finish();
             Intent intent = new Intent(this, Earth.class);
             startActivity(intent);
         }
 
         public void btEarthUser(View v){
+            finish();
             Intent intent = new Intent(this, EarthUser.class);
             startActivity(intent);
         }
 
         public void btApod(View v){
+            finish();
             Intent intent = new Intent(this, APOD.class);
             startActivity(intent);
         }

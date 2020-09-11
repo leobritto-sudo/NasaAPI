@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.782" />
 
     <TextView
-        android:id="@+id/txt"
+        android:id="@+id/txtLocal"
         android:layout_width="289dp"
         android:layout_height="49dp"
         android:fontFamily="sans-serif-black"
@@ -52,17 +52,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.796" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="243dp"
-        android:layout_height="172dp"
-        android:contentDescription="@string/ImageView2"
-        app:layout_constraintBottom_toTopOf="@+id/txt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/kindpng_424812" />
-
     <Button
         android:id="@+id/btnExit"
         android:layout_width="236dp"
@@ -76,5 +65,22 @@
         app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnEarth" />
+
+    <TextView
+        android:id="@+id/titleEarth"
+        android:layout_width="248dp"
+        android:layout_height="85dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/titleApod"
+        android:textAlignment="center"
+        android:textColor="#1C1717"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/txtLocal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.582" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

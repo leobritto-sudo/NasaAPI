@@ -2,36 +2,33 @@ package com.example.nasaapi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-public class NasaPic extends AppCompatActivity {
+public class NasaEarth extends AppCompatActivity {
 
-    private TextView txt2;
-    private TextView txt3;
-    private ImageView ivNasa;
-    private Button btn2;
+    ImageView ivNasa;
+    TextView txt3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nasa_pic);
-        txt2 = findViewById(R.id.txtLocal);
+        setContentView(R.layout.activity_nasa_earth);
+
         txt3 = findViewById(R.id.txt3);
         ivNasa = findViewById(R.id.ivNasa);
-        btn2 = findViewById(R.id.btn2);
 
-        SharedPreferences prefURL = getSharedPreferences("url", Context.MODE_PRIVATE);
-        String URL = prefURL.getString("url", "não encontrado");
+        Bundle bundle = getIntent().getExtras();
+        String URL = bundle.getString("url");
         if(URL != null) {
 
             Uri uriimg = Uri.parse(URL);
@@ -44,7 +41,7 @@ public class NasaPic extends AppCompatActivity {
 
         }
 
-        }
+    }
 
     public void share(View view){
 

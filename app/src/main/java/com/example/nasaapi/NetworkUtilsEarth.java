@@ -11,8 +11,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class NetworkUtilsEarth {
-    private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
-    private static final String NASA_URL = "https://api.nasa.gov/planetary/earth/imagery?";
+    private static final String LOG_TAG = NetworkUtilsEarth.class.getSimpleName();
+    private static final String NASA_URL = "https://api.nasa.gov/planetary/earth/assets?";
     private static final String API_KEY = "api_key";
     private static final String DIM = "dim";
     private static final String QUERY_PARAM = "WJq7npsb0pcaFoWI0xem1yATVBo9r5qKRetubm6T";
@@ -24,8 +24,8 @@ public class NetworkUtilsEarth {
             Uri builtURI = Uri.parse(NASA_URL).buildUpon()
                     .appendQueryParameter("lon", queryLon)
                     .appendQueryParameter("lat", queryLat)
-                    .appendQueryParameter(DIM, "0.15")
                     .appendQueryParameter("date", queryDate)
+                    .appendQueryParameter(DIM, "0.15")
                     .appendQueryParameter(API_KEY, QUERY_PARAM)
                     .build();
             URL requestURL = new URL(builtURI.toString());

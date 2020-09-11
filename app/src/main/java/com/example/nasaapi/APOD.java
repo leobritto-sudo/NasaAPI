@@ -42,7 +42,7 @@ public class APOD extends AppCompatActivity implements LoaderManager.LoaderCallb
         setContentView(R.layout.activity_a_p_o_d);
 
         txt1 = findViewById(R.id.txt1);
-        txt = findViewById(R.id.txt);
+        txt = findViewById(R.id.txtLocal);
         btn1 = findViewById(R.id.btnEarth);
         btnExit = findViewById(R.id.btnExit);
         if (getSupportLoaderManager().getLoader(0) != null) {
