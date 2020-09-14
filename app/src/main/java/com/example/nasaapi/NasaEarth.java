@@ -6,13 +6,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class NasaEarth extends AppCompatActivity {
 
@@ -28,13 +35,11 @@ public class NasaEarth extends AppCompatActivity {
         ivNasa = findViewById(R.id.ivNasa);
 
         Bundle bundle = getIntent().getExtras();
-        String URL = bundle.getString("url");
-        if(URL != null) {
+        String urlLink = bundle.getString("url");
+        if(urlLink != null) {
 
-            Uri uriimg = Uri.parse(URL);
-            Glide.with(this)
-                    .load(uriimg)
-                    .into(ivNasa);
+            LoadImage loadImage = new LoadImage(ivNasa);
+            loadImage.execute(urlLink);
         }else{
 
             txt3.setText(R.string.txt3_no_results);
@@ -59,5 +64,31 @@ public class NasaEarth extends AppCompatActivity {
         finish();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private class LoadImage extends AsyncTask<String, Void, Bitmap> {
+        ImageView imageView;
+
+        public LoadImage(ImageView ivNasa) {
+            this.imageView = ivNasa;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+            String urlLink = strings[0];
+            Bitmap bitmap = null;
+            try {
+                InputStream inputStream = new java.net.URL(urlLink).openStream();
+                bitmap = BitmapFactory.decodeStream(inputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            ivNasa.setImageBitmap(bitmap);
+        }
     }
 }

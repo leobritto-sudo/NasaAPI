@@ -25,7 +25,7 @@ public class NetworkUtilsEarth {
                     .appendQueryParameter("lon", queryLon)
                     .appendQueryParameter("lat", queryLat)
                     .appendQueryParameter("date", queryDate)
-                    .appendQueryParameter(DIM, "0.15")
+                    .appendQueryParameter(DIM, "0.10")
                     .appendQueryParameter(API_KEY, QUERY_PARAM)
                     .build();
             URL requestURL = new URL(builtURI.toString());
