@@ -2,6 +2,7 @@
     <string name="app_name">NasaAPI</string>
     <string name="btn1">Visualizar</string>
     <string name="txt">Selecione uma data para visualizar a imagem do espaço</string>
+    <string name="txtEarthUser">Selecione uma data para visualizar a imagem de satélite da sua localização atual</string>
     <string name="txtLat">Digite a latitude</string>
     <string name="txtLon">Digite a longitude</string>
     <string name="txt1">SELECIONE UMA DATA</string>
@@ -11,6 +12,7 @@
     <string name="txtLocal">Está é a foto do local referente</string>
     <string name="titleApod">ASTRONOMIC PICTURE OF DAY</string>
     <string name="titleEarth">EARTH</string>
+    <string name="titleEarthUser">EARTH USER</string>
     <string name="ivNasa">Foto da data dada pelo usuário</string>
     <string name="txt3"></string>
     <string name="btn2">Compartilhar</string>

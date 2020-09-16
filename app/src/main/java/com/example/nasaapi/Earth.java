@@ -145,6 +145,7 @@ public class Earth extends AppCompatActivity implements LoaderManager.LoaderCall
                 Intent intent = new Intent(this, NasaEarth.class);
                 intent.putExtra("url", URL);
                 startActivity(intent);
+                finish();
 
             } else {
                 txt1.setText("Sem resultados, tente novamente");

@@ -141,6 +141,7 @@ public class APOD extends AppCompatActivity implements LoaderManager.LoaderCallb
                 ed.putString("url", URL);
                 ed.apply();
                 startActivity(intent);
+                finish();
 
             } else {
                 txt1.setText("Sem resultados, tente novamente");
