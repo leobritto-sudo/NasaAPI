@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -24,16 +26,19 @@ import android.widget.TextView;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class Earth extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>  {
 
     private static final String TAG = "EARTH";
     TextView txt1;
-    EditText editLat, editLon;
+    EditText editLat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +46,6 @@ public class Earth extends AppCompatActivity implements LoaderManager.LoaderCall
         setContentView(R.layout.activity_earth);
 
         editLat = findViewById(R.id.editLat);
-        editLon = findViewById(R.id.editLon);
         txt1 = findViewById(R.id.txt1);
         if (getSupportLoaderManager().getLoader(0) != null) {
             getSupportLoaderManager().initLoader(0, null,  this);
@@ -81,14 +85,7 @@ public class Earth extends AppCompatActivity implements LoaderManager.LoaderCall
         startActivity(intent);
     }
 
-    public void buscarImage(View view) throws ParseException {
-        String dateNasa = txt1.getText().toString();
-        SimpleDateFormat formatoOrigem = new SimpleDateFormat("dd/MM/yyyy");
-        Date data = formatoOrigem.parse(dateNasa);
-        SimpleDateFormat formatoDestino = new SimpleDateFormat("yyyy-MM-dd");
-        String queryString = formatoDestino.format(data);
-        String queryLat = editLat.getText().toString();
-        String queryLon = editLon.getText().toString();
+    public void buscarImage(View view) throws ParseException, IOException {
 
         InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -103,23 +100,31 @@ public class Earth extends AppCompatActivity implements LoaderManager.LoaderCall
         if (connMgr != null) {
             networkInfo = connMgr.getActiveNetworkInfo();
         }
-        if (networkInfo != null && networkInfo.isConnected()
-                && queryString.length() != 0) {
-            Bundle queryBundle = new Bundle();
-            queryBundle.putString("queryString", queryString);
-            queryBundle.putString("queryLat", queryLat);
-            queryBundle.putString("queryLon", queryLon);
-            getSupportLoaderManager().restartLoader(0, queryBundle, this);
-
+        if (networkInfo != null && networkInfo.isConnected()) {
+            getAddress();
         }
         else {
-            if (queryString.length() == 16) {
-                txt1.setText("DATA VAZIA, INFORME UMA");
-            } else {
-                txt1.setText("Verifique sua conexão");
-            }
+
         }
     }
+
+    private void getAddress() throws IOException, ParseException {
+        Geocoder geocoder = new Geocoder(this);
+        List<Address> addresses = geocoder.getFromLocationName(editLat.getText().toString(), 1);
+        String queryLat = String.valueOf(addresses.get(0).getLatitude());
+        String queryLon = String.valueOf(addresses.get(0).getLongitude());
+        Bundle queryBundle = new Bundle();
+        String dateNasa = txt1.getText().toString();
+        SimpleDateFormat formatoOrigem = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = formatoOrigem.parse(dateNasa);
+        SimpleDateFormat formatoDestino = new SimpleDateFormat("yyyy-MM-dd");
+        String queryString = formatoDestino.format(data);
+        queryBundle.putString("queryString", queryString);
+        queryBundle.putString("queryLat", queryLat);
+        queryBundle.putString("queryLon", queryLon);
+        getSupportLoaderManager().restartLoader(0, queryBundle, this);
+    }
+
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
