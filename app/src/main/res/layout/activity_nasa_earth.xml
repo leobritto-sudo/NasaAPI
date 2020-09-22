@@ -1,78 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NasaEarth">
 
-    <TextView
-        android:id="@+id/txtLocal"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/txtLocal"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.091" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txt3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txt3"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLocal"
-        app:layout_constraintVertical_bias="0.291" />
+        <TextView
+            android:id="@+id/txtLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/txtLocal"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:textSize="18sp" />
 
-    <ImageView
-        android:id="@+id/ivNasa"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:contentDescription="@string/ivNasa"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLocal"
-        app:layout_constraintVertical_bias="0.119"
-        tools:srcCompat="@drawable/kindpng_424812" />
+        <ImageView
+            android:id="@+id/ivNasa"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/ivNasa"
+            app:srcCompat="@drawable/carregando" />
 
-    <Button
-        android:id="@+id/btn2"
-        android:layout_width="236dp"
-        android:layout_height="46dp"
-        android:background="@drawable/custom_button"
-        android:onClick="share"
-        android:text="@string/btn2"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt3"
-        app:layout_constraintVertical_bias="0.537" />
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="236dp"
+            android:layout_height="46dp"
+            android:background="@drawable/custom_button"
+            android:onClick="share"
+            android:text="@string/btn2"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:textColor="#FFFFFF" />
 
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="236dp"
-        android:layout_height="46dp"
-        android:background="@drawable/custom_button"
-        android:onClick="back"
-        android:text="@string/btnBack"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn2"
-        app:layout_constraintVertical_bias="0.35" />
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="236dp"
+            android:layout_height="46dp"
+            android:background="@drawable/custom_button"
+            android:onClick="back"
+            android:text="@string/btnBack"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

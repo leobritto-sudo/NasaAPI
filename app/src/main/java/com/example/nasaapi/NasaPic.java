@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,19 +24,29 @@ import java.io.InputStream;
 
 public class NasaPic extends AppCompatActivity {
 
+    private static final String KEYSTRING_IMAGE = "image_key";
     private TextView txt2;
-    private TextView txt3;
     private ImageView ivNasa;
     private Button btn2;
+    AnimationDrawable animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nasa_pic);
         txt2 = findViewById(R.id.txtLocal);
-        txt3 = findViewById(R.id.txt3);
         ivNasa = findViewById(R.id.ivNasa);
         btn2 = findViewById(R.id.btn2);
+
+        animation = (AnimationDrawable) ivNasa.getDrawable();
+        animation.start();
+
+        if(savedInstanceState != null){
+            Bitmap savedImage = savedInstanceState.getParcelable(KEYSTRING_IMAGE);
+            ivNasa.setImageBitmap(savedImage);
+        }else{
+
+        }
 
         SharedPreferences prefURL = getSharedPreferences("url", Context.MODE_PRIVATE);
         String urlLink = prefURL.getString("url", "não encontrado");
@@ -44,11 +56,17 @@ public class NasaPic extends AppCompatActivity {
             loadImage.execute(urlLink);
         }else{
 
-            txt3.setText(R.string.txt3_no_results);
-
         }
 
         }
+
+    public void onSaveInstanceState(Bundle savedInstance) {
+        BitmapDrawable drawable = (BitmapDrawable) ivNasa.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+        savedInstance.putParcelable(KEYSTRING_IMAGE, bitmap);
+
+        super.onSaveInstanceState(savedInstance);
+    }
 
     public void share(View view){
 

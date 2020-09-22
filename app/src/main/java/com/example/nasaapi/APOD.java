@@ -32,6 +32,7 @@ import java.util.Date;
 public class APOD extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     private static final String TAG = "APOD";
+    private static final String KEYSTRING_DATE_ = "date_key";
     private TextView txt1, txt;
     private Button btn1;
     private Button btnExit;
@@ -48,6 +49,19 @@ public class APOD extends AppCompatActivity implements LoaderManager.LoaderCallb
         if (getSupportLoaderManager().getLoader(0) != null) {
             getSupportLoaderManager().initLoader(0, null,  this);
         }
+
+        if(savedInstanceState != null){
+            String savedDate = savedInstanceState.getString(KEYSTRING_DATE_);
+            txt1.setText(savedDate);
+        }else{
+
+        }
+    }
+
+    public void onSaveInstanceState(Bundle savedInstance) {
+        savedInstance.putString(KEYSTRING_DATE_, txt1.getText().toString());
+
+        super.onSaveInstanceState(savedInstance);
     }
 
     public void selectDate(View view){

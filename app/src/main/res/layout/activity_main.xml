@@ -1,84 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnEarth"
-        android:layout_width="236dp"
-        android:layout_height="46dp"
-        android:background="@drawable/custom_button"
-        android:backgroundTint="#171515"
-        android:onClick="btEarth"
-        android:text="@string/btnEarth"
-        android:textColor="#E4DEDE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.585" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <Button
-        android:id="@+id/btnEarthUser"
-        android:layout_width="236dp"
-        android:layout_height="46dp"
-        android:background="@drawable/custom_button"
-        android:backgroundTint="#171515"
-        android:onClick="btEarthUser"
-        android:text="@string/btnEarthUser"
-        android:textColor="#E4DEDE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="243dp"
+            android:layout_height="172dp"
+            android:contentDescription="@string/ImageView2"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            app:srcCompat="@drawable/kindpng_424812" />
 
-    <Button
-        android:id="@+id/btnApod"
-        android:layout_width="236dp"
-        android:layout_height="46dp"
-        android:background="@drawable/custom_button"
-        android:backgroundTint="#171515"
-        android:onClick="btApod"
-        android:text="@string/btnApod"
-        android:textColor="#E4DEDE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.712" />
+        <Button
+            android:id="@+id/btnEarth"
+            android:layout_width="236dp"
+            android:layout_height="46dp"
+            android:background="@drawable/custom_button"
+            android:backgroundTint="#171515"
+            android:onClick="btEarth"
+            android:text="@string/btnEarth"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:textColor="#E4DEDE" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="243dp"
-        android:layout_height="172dp"
-        android:contentDescription="@string/ImageView2"
-        app:layout_constraintBottom_toTopOf="@+id/btnEarth"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.238"
-        app:srcCompat="@drawable/kindpng_424812" />
+        <Button
+            android:id="@+id/btnEarthUser"
+            android:layout_width="236dp"
+            android:layout_height="46dp"
+            android:background="@drawable/custom_button"
+            android:backgroundTint="#171515"
+            android:onClick="btEarthUser"
+            android:text="@string/btnEarthUser"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:textColor="#E4DEDE" />
 
-    <Button
-        android:id="@+id/btnExit"
-        android:layout_width="236dp"
-        android:layout_height="46dp"
-        android:background="@drawable/custom_button"
-        android:onClick="Exit"
-        android:text="@string/btnExit"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEarth"
-        app:layout_constraintVertical_bias="0.532" />
+        <Button
+            android:id="@+id/btnApod"
+            android:layout_width="236dp"
+            android:layout_height="46dp"
+            android:background="@drawable/custom_button"
+            android:backgroundTint="#171515"
+            android:onClick="btApod"
+            android:text="@string/btnApod"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:textColor="#E4DEDE" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnExit"
+            android:layout_width="236dp"
+            android:layout_height="46dp"
+            android:background="@drawable/custom_button_red"
+            android:onClick="Exit"
+            android:text="@string/btnExit"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+</ScrollView>

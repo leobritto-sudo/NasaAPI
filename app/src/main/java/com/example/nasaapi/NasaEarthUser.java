@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -17,15 +18,17 @@ import java.io.InputStream;
 public class NasaEarthUser extends AppCompatActivity {
 
     ImageView ivNasa;
-    TextView txt3;
+    AnimationDrawable animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nasa_earth_user);
 
-        txt3 = findViewById(R.id.txt3);
         ivNasa = findViewById(R.id.ivNasa);
+
+        animation = (AnimationDrawable) ivNasa.getDrawable();
+        animation.start();
 
         Bundle bundle = getIntent().getExtras();
         String urlLink = bundle.getString("url");
@@ -35,7 +38,6 @@ public class NasaEarthUser extends AppCompatActivity {
             loadImage.execute(urlLink);
         }else{
 
-            txt3.setText(R.string.txt3_no_results);
 
         }
 

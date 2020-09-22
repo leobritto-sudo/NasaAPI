@@ -37,6 +37,7 @@ import java.util.Locale;
 public class Earth extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>  {
 
     private static final String TAG = "EARTH";
+    private static final String KEYSTRING_DATE_ = "date_key";
     TextView txt1;
     EditText editLat;
 
@@ -50,6 +51,20 @@ public class Earth extends AppCompatActivity implements LoaderManager.LoaderCall
         if (getSupportLoaderManager().getLoader(0) != null) {
             getSupportLoaderManager().initLoader(0, null,  this);
         }
+
+        if(savedInstanceState != null){
+            String savedDate = savedInstanceState.getString(KEYSTRING_DATE_);
+            txt1.setText(savedDate);
+        }else{
+
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstance) {
+        savedInstance.putString(KEYSTRING_DATE_, txt1.getText().toString());
+
+        super.onSaveInstanceState(savedInstance);
     }
 
     public void selectDate(View view){
