@@ -125,9 +125,14 @@ public class Earth extends AppCompatActivity implements LoaderManager.LoaderCall
 
     private void getAddress() throws IOException, ParseException {
         Geocoder geocoder = new Geocoder(this);
+        Geolocation gl = new Geolocation();
         List<Address> addresses = geocoder.getFromLocationName(editLat.getText().toString(), 1);
-        String queryLat = String.valueOf(addresses.get(0).getLatitude());
-        String queryLon = String.valueOf(addresses.get(0).getLongitude());
+        double lat = addresses.get(0).getLatitude();
+        double lon = addresses.get(0).getLongitude();
+        gl.setLatitude(lat);
+        gl.setLongitude(lon);
+        String queryLat = String.valueOf(gl.getLatitude());
+        String queryLon = String.valueOf(gl.getLongitude());
         Bundle queryBundle = new Bundle();
         String dateNasa = txt1.getText().toString();
         SimpleDateFormat formatoOrigem = new SimpleDateFormat("dd/MM/yyyy");

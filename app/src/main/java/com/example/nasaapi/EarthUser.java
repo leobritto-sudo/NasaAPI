@@ -156,14 +156,19 @@ public class EarthUser extends AppCompatActivity implements LoaderManager.Loader
                 if (location != null) {
                     try {
                         Geocoder geocoder = new Geocoder(EarthUser.this, Locale.getDefault());
+                        Geolocation gl = new Geolocation();
                         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                         String dateNasa = txt1.getText().toString();
                         SimpleDateFormat formatoOrigem = new SimpleDateFormat("dd/MM/yyyy");
                         Date data = formatoOrigem.parse(dateNasa);
                         SimpleDateFormat formatoDestino = new SimpleDateFormat("yyyy-MM-dd");
                         String queryString = formatoDestino.format(data);
-                        String queryLat = String.valueOf(addresses.get(0).getLatitude());
-                        String queryLon = String.valueOf(addresses.get(0).getLongitude());
+                        double lat = addresses.get(0).getLatitude();
+                        double lon = addresses.get(0).getLongitude();
+                        gl.setLatitude(lat);
+                        gl.setLongitude(lon);
+                        String queryLat = String.valueOf(gl.getLatitude());
+                        String queryLon = String.valueOf(gl.getLongitude());
                         Bundle queryBundle = new Bundle();
                         queryBundle.putString("queryString", queryString);
                         queryBundle.putString("queryLat", queryLat);

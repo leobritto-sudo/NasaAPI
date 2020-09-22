@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +16,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -31,7 +35,9 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity{
 
     private Button btnApod, btnEarth, btnEarthUser, btnExit;
+    Animation scaleUp, scaleDown;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,28 +46,66 @@ public class MainActivity extends AppCompatActivity{
         btnEarth = findViewById(R.id.btnEarth);
         btnEarthUser = findViewById(R.id.btnEarthUser);
         btnExit = findViewById(R.id.btnExit);
-        }
 
-        public void btEarth(View v){
-            finish();
-            Intent intent = new Intent(this, Earth.class);
-            startActivity(intent);
-        }
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
 
-        public void btEarthUser(View v){
-            finish();
-            Intent intent = new Intent(this, EarthUser.class);
-            startActivity(intent);
-        }
+        btnApod.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    btnApod.startAnimation(scaleUp);
+                    Intent intent = new Intent(v.getContext(), APOD.class);
+                    startActivity(intent);
+                    finish();
+                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                    btnApod.startAnimation(scaleDown);
+                }
+                return true;
+            }
+        });
 
-        public void btApod(View v){
-            finish();
-            Intent intent = new Intent(this, APOD.class);
-            startActivity(intent);
-        }
+        btnEarthUser.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    btnEarthUser.startAnimation(scaleUp);
+                    Intent intent = new Intent(v.getContext(), EarthUser.class);
+                    startActivity(intent);
+                    finish();
+                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                    btnEarthUser.startAnimation(scaleDown);
+                }
+                return true;
+            }
+        });
 
-        public void Exit(View v) {
-            finish();
-            System.exit(0);
+        btnEarth.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    btnEarth.startAnimation(scaleUp);
+                    Intent intent = new Intent(v.getContext(), Earth.class);
+                    startActivity(intent);
+                    finish();
+                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                    btnEarth.startAnimation(scaleDown);
+                }
+                return true;
+            }
+        });
+
+        btnExit.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    btnExit.startAnimation(scaleUp);
+                    System.exit(0);
+                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                    btnExit.startAnimation(scaleDown);
+                }
+                return true;
+            }
+        });
         }
     }
