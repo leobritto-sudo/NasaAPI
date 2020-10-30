@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -148,6 +149,20 @@ public class APOD extends AppCompatActivity implements LoaderManager.LoaderCallb
             String URL = jsonObject.getString("url");
 
             if (URL != null) {
+
+                ImageModel imageModel;
+
+                try {
+                    imageModel = new ImageModel(-1, URL);
+                    Toast.makeText(APOD.this, imageModel.toString(), Toast.LENGTH_SHORT).show();
+                }catch(Exception e){
+                    Toast.makeText(APOD.this, "Erro ao adicionar", Toast.LENGTH_SHORT).show();
+                    imageModel = new ImageModel(-1, "error");
+                }
+
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(APOD.this);
+                boolean success = dataBaseHelper.addOne(imageModel);
+                Toast.makeText(APOD.this, "Success" + success, Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(this, NasaPic.class);
                 SharedPreferences prefURL = getSharedPreferences("url", Context.MODE_PRIVATE);

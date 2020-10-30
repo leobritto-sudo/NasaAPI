@@ -72,8 +72,8 @@ public class NasaPic extends AppCompatActivity {
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        Bundle bundle = getIntent().getExtras();
-        String ShareBody = bundle.getString("url");
+        SharedPreferences prefURL = getSharedPreferences("url", Context.MODE_PRIVATE);
+        String ShareBody = prefURL.getString("url", "não encontrado");
         String shareSub = "Sei lá chupingaaa";
         intent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
         intent.putExtra(Intent.EXTRA_TEXT, ShareBody);
