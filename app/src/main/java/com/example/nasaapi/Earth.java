@@ -9,10 +9,8 @@ import androidx.loader.content.Loader;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Address;
 import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,26 +18,28 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class Earth extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>  {
 
     private static final String TAG = "EARTH";
     private static final String KEYSTRING_DATE_ = "date_key";
     TextView txt1;
-    EditText editLat;
+    AutoCompleteTextView editLat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,11 @@ public class Earth extends AppCompatActivity implements LoaderManager.LoaderCall
         }else{
 
         }
+
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(Earth.this);
+        ArrayList<String> allAddresses = dataBaseHelper.getAllAddresses();
+        ArrayAdapter<String> addAllAddresses = new ArrayAdapter<String>(Earth.this, android.R.layout.simple_list_item_1, allAddresses);
+        editLat.setAdapter(addAllAddresses);
     }
 
     @Override
@@ -126,7 +131,23 @@ public class Earth extends AppCompatActivity implements LoaderManager.LoaderCall
     private void getAddress() throws IOException, ParseException {
         Geocoder geocoder = new Geocoder(this);
         Geolocation gl = new Geolocation();
-        List<Address> addresses = geocoder.getFromLocationName(editLat.getText().toString(), 1);
+        List<android.location.Address> addresses = geocoder.getFromLocationName(editLat.getText().toString(), 1);
+        String address = editLat.getText().toString();
+
+        Address ad;
+
+        try {
+            ad = new Address(-1, address);
+        }catch(Exception e){
+            Toast.makeText(Earth.this, "Erro ao adicionar", Toast.LENGTH_SHORT).show();
+            ad = new Address(-1, "error");
+        }
+
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(Earth.this);
+
+        boolean b = dataBaseHelper.addAddress(ad);
+        Toast.makeText(Earth.this, "Success = " + b, Toast.LENGTH_SHORT).show();
+
         double lat = addresses.get(0).getLatitude();
         double lon = addresses.get(0).getLongitude();
         gl.setLatitude(lat);
@@ -166,6 +187,19 @@ public class Earth extends AppCompatActivity implements LoaderManager.LoaderCall
             String URL = jsonObject.getString("url");
 
             if (URL != null) {
+
+                ImageModel imageModel;
+
+                try {
+                    imageModel = new ImageModel(-1, URL);
+                    imageModel.setURL(URL);
+                }catch(Exception e){
+                    Toast.makeText(Earth.this, "Erro ao adicionar", Toast.LENGTH_SHORT).show();
+                    imageModel = new ImageModel(-1, "error");
+                }
+
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(Earth.this);
+                dataBaseHelper.addOne(imageModel);
 
                 Intent intent = new Intent(this, NasaEarth.class);
                 intent.putExtra("url", URL);

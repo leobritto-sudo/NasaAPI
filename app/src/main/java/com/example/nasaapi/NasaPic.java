@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -49,7 +50,13 @@ public class NasaPic extends AppCompatActivity {
         }
 
         SharedPreferences prefURL = getSharedPreferences("url", Context.MODE_PRIVATE);
-        String urlLink = prefURL.getString("url", "não encontrado");
+        String url = prefURL.getString("url", "não encontrado");
+
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(NasaPic.this);
+        int id = dataBaseHelper.selectId(url);
+
+        String urlLink = dataBaseHelper.selectURL(id);
+
         if(urlLink != null) {
 
             LoadImage loadImage = new LoadImage(ivNasa);

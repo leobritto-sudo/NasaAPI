@@ -27,6 +27,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -204,6 +205,20 @@ public class EarthUser extends AppCompatActivity implements LoaderManager.Loader
             String URL = jsonObject.getString("url");
 
             if (URL != null) {
+
+                ImageModel imageModel;
+
+                try {
+                    imageModel = new ImageModel(-1, URL);
+                    imageModel.setURL(URL);
+                }catch(Exception e){
+                    Toast.makeText(EarthUser.this, "Erro ao adicionar", Toast.LENGTH_SHORT).show();
+                    imageModel = new ImageModel(-1, "error");
+                }
+
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(EarthUser.this);
+
+                dataBaseHelper.addOne(imageModel);
 
                 Intent intent = new Intent(this, NasaEarth.class);
                 intent.putExtra("url", URL);

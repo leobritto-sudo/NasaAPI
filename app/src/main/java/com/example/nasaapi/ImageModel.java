@@ -9,6 +9,9 @@ public class ImageModel {
         this.URL = URL;
     }
 
+    public ImageModel() {
+    }
+
     @Override
     public String toString() {
         return "Image{" +

@@ -38,7 +38,11 @@ public class NasaEarth extends AppCompatActivity {
         animation.start();
 
         Bundle bundle = getIntent().getExtras();
-        String urlLink = bundle.getString("url");
+        String url = bundle.getString("url");
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(NasaEarth.this);
+        int id = dataBaseHelper.selectId(url);
+
+        String urlLink = dataBaseHelper.selectURL(id);
         if(urlLink != null) {
 
             LoadImage loadImage = new LoadImage(ivNasa);
